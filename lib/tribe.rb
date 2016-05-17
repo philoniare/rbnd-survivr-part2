@@ -13,8 +13,11 @@ class Tribe
     return "#{@name}"
   end
 
-  def tribal_council(immune)
-    members_for_vote = @members - [immune[:immune]]
+  def tribal_council(immune = nil)
+    members_for_vote = @members
+    if immune != nil
+      members_for_vote -= [immune[:immune]]
+    end
     p immune
     # Vote to eliminate non-immune members
     votes = Hash[members_for_vote.map {|member| [member, 0]}]
@@ -25,5 +28,9 @@ class Tribe
 
     # Return the member to be eliminated
     votes.max_by{|k,v| v}[0]
+  end
+
+  def eliminate_from_tribe(member)
+    @members -= [member]
   end
 end
