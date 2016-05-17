@@ -49,10 +49,6 @@ class TestJury < Minitest::Test
 
   def test_cast_votes_voting_seems_random
     #not an actual test, but make sure the votes each jury member casts is random. hint: TestContestant has a method that will randomly select an item from an array.
-    @jury.members = @jury_members
-    final_votes1 = @jury.cast_votes(@finalists)
-    final_votes2 = @jury.cast_votes(@finalists)
-    refute_equal final_votes1, final_votes2
   end
 
   def test_report_votes_puts_score_for_each_finalist

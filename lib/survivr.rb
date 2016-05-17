@@ -1,3 +1,4 @@
+require 'colorizr'
 require_relative "game"
 require_relative "tribe"
 require_relative "contestant"
@@ -16,31 +17,30 @@ require_relative "jury"
 
 def phase_one
   8.times do
-    losing_tribe = @borneo.immunity_challenge
-    losing_tribe.eliminate_from_tribe(losing_tribe.tribal_council)
+    @borneo.immunity_challenge
   end
-  8
 end
 
 
 def phase_two
-  @merge_tribe = @borneo.merge("Cello")
-  3
+  3.times do
+    @borneo.individual_immunity_challenge
+  end
 end
 
 def phase_three
-  7
+  7.times do
+    new_jury = @borneo.jury_challenge
+    @jury.add_member(new_jury)
+  end
 end
 
-
-# If all the tests pass, the code below should run the entire simulation!!
-#=========================================================
-# phase_one #8 eliminations
-# @merge_tribe = @borneo.merge("Cello") # After 8 eliminations, merge the two tribes together
-# phase_two #3 more eliminations
-# @jury = Jury.new
-# phase_three #7 elminiations become jury members
-# finalists = @merge_tribe.members #set finalists
-# vote_results = @jury.cast_votes(finalists) #Jury members report votes
-# @jury.report_votes(vote_results) #Jury announces their votes
-# @jury.announce_winner(vote_results) #Jury announces final winner
+phase_one #8 eliminations
+@merge_tribe = @borneo.merge("Cello") # After 8 eliminations, merge the two tribes together
+phase_two #3 more eliminations
+@jury = Jury.new
+phase_three #7 elminiations become jury members
+finalists = @merge_tribe.members #set finalists
+vote_results = @jury.cast_votes(finalists) #Jury members report votes
+@jury.report_votes(vote_results) #Jury announces their votes
+@jury.announce_winner(vote_results) #Jury announces final winner
